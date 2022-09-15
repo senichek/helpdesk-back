@@ -8,10 +8,6 @@ app.use(express.json());
 
 app.use(router);
 
-/* app.listen(() => {
-  console.log('Test server has started');
-}); */
-
 // Export to make it available for testing
 // It will be imported in userController.test.js file
 module.exports = app;

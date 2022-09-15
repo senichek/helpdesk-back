@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       // Check if jwt token is valid
-      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findByPk(decoded.id);
       if (user.dataValues) {
         req.loggedIn = { ...user.dataValues, password: "" };

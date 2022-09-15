@@ -7,6 +7,8 @@ const auth = require('./middleware/authentication');
 router.post("/login", tryCatcher(userController.login));
 router.post("/signup", tryCatcher(userController.signup));
 router.delete("/user", auth, tryCatcher(userController.delete));
+router.post("/user", auth, tryCatcher(userController.create));
+router.patch("/user", auth, tryCatcher(userController.update));
 
 router.use((req, res) => {
   res.json("404");

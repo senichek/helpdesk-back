@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("./config/server");
 const { v4: uuidv4 } = require('uuid');
+const { DataTypes } = require("sequelize");
 
 let listener;
 
@@ -106,6 +107,152 @@ describe("===== userController tests =====", () => {
     expect(response.body.role).toBe("helper");
     expect(response.body.isAvailable).toBe(false);
     expect(response.body.jwt).toBeDefined();
+  });
+
+  test("POST /user - should return Not authorized, no JWT", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    role: "admin",
+    name: "admin_two",
+    email: "admin_two@gmail.com",
+    password: "pass111",
+    password2: "pass111",
+    isAvailable: false,
+    created_at: new Date()
+    })
+    expect(response.body.error).toBe('Not authorized, no JWT');
+  });
+
+  test("POST /user - should return Details incomplete", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    role: "admin",
+    email: "admin_two@gmail.com",
+    password: "pass111",
+    password2: "pass111",
+    isAvailable: false,
+    created_at: new Date(),
+    })
+    .set('Authorization', `Bearer ${admin_jwt}`);
+    expect(response.body.error).toBe('The details are incomplete.');
+  });
+
+  test("POST /user - should return Both passwords must be the same.", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    name: 'admin_two',
+    role: "admin",
+    email: "admin_two@gmail.com",
+    password: "pass111",
+    password2: "pass11",
+    isAvailable: false,
+    created_at: new Date(),
+    })
+    .set('Authorization', `Bearer ${admin_jwt}`);
+    expect(response.body.error).toBe('Both passwords must be the same.');
+  });
+
+  test("POST /user - should return Not authorized", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    name: 'admin_two',
+    role: "admin",
+    email: "admin_two@gmail.com",
+    password: "pass111",
+    password2: "pass11",
+    isAvailable: false,
+    created_at: new Date(),
+    })
+    .set('Authorization', `Bearer ${test_user_jwt}`);
+    expect(response.body.error).toBe('Not authorized');
+  });
+
+  test("POST /user - should return User exists", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    name: 'admin_one',
+    role: "admin",
+    email: "admin_one@gmail.com",
+    password: "pass111",
+    password2: "pass111",
+    isAvailable: false,
+    created_at: new Date(),
+    })
+    .set('Authorization', `Bearer ${admin_jwt}`);
+    expect(response.body.error).toBe('User exists');
+  });
+
+  test("POST /user - should return correct user data", async () => {
+    const response = await request(app).post("/user")
+    .send({
+    name: 'admin_two',
+    role: "admin",
+    email: "admin_two@gmail.com",
+    password: "pass111",
+    password2: "pass111",
+    isAvailable: false,
+    created_at: new Date(),
+    })
+    .set('Authorization', `Bearer ${admin_jwt}`);
+    
+    expect(response.body.id).toBeDefined();
+    expect(response.body.name).toBe("admin_two");
+    expect(response.body.email).toBe("admin_two@gmail.com");
+    expect(response.body.role).toBe("admin");
+    expect(response.body.isAvailable).toBe(false);
+    expect(response.body.jwt).toBeDefined();
+  });
+
+  test("PATCH /user - should return Not authorized, no JWT", async () => {
+    const response = await request(app).patch("/user")
+    .send({
+    name: 'admin_two_updated',
+    email: "admin_two@gmail.com",
+    isAvailable: false,
+    });
+  
+    expect(response.body.error).toBe('Not authorized, no JWT');
+  });
+
+  test("PATCH /user - should return Provide id, name, email, isAvailable", async () => {
+    const response = await request(app).patch("/user")
+    .send({
+    id: test_user_id,
+    email: "admin_one@gmail.com",
+    isAvailable: false,
+    })
+    .set('Authorization', `Bearer ${test_user_jwt}`);
+    expect(response.body.error).toBe('Provide id, name, email, isAvailable');
+  });
+
+  test("PATCH /user - should return User with id not found", async () => {
+    const response = await request(app).patch("/user")
+    .send({
+    id: 'ce7dcc7c-3528-11ed-a261-0242ac120002',
+    name: 'admin_two_updated',
+    email: "admin_two@gmail.com",
+    isAvailable: false,
+    })
+    .set('Authorization', `Bearer ${test_user_jwt}`);
+  
+    expect(response.body.error).toBe('User with id ce7dcc7c-3528-11ed-a261-0242ac120002 not found');
+  });
+
+  test("PATCH /user - should return updated data", async () => {
+    const response = await request(app).patch("/user")
+    .send({
+    id: test_user_id,
+    name: 'test_user_updated',
+    email: "test_updated@gmail.com",
+    isAvailable: true,
+    })
+    .set('Authorization', `Bearer ${test_user_jwt}`);
+  
+    expect(response.body.id).toBeDefined();
+    expect(response.body.name).toBe("test_user_updated");
+    expect(response.body.email).toBe("test_updated@gmail.com");
+    expect(response.body.role).toBe("helper");
+    expect(response.body.isAvailable).toBe(true);
   });
 
   test("DELETE /user - should return Not authorized", async () => {

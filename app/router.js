@@ -9,6 +9,7 @@ router.post("/signup", tryCatcher(userController.signup));
 router.delete("/user", auth, tryCatcher(userController.delete));
 router.post("/user", auth, tryCatcher(userController.create));
 router.patch("/user", auth, tryCatcher(userController.update));
+router.get("/users", auth, tryCatcher(userController.getAllUsers));
 
 router.use((req, res) => {
   res.json("404");

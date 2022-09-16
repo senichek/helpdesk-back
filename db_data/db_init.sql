@@ -38,9 +38,19 @@ CREATE TABLE "chat_per_owner" (
 );
 
 INSERT INTO "helpdesker" ("id", "role", "name", "email", "password", "isAvailable", "created_at") VALUES
+('ad61df30-34c2-11ed-a261-0242ac120002', 'admin', 'admin_one', 'admin_one@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'false', '2022-09-13'),
 ('78d7685e-335d-11ed-a261-0242ac120002', 'helper', 'agent_one', 'agent_one@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-12'),
 ('8560f778-335f-11ed-a261-0242ac120002', 'user', 'user_one', 'user_one@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
-('ad61df30-34c2-11ed-a261-0242ac120002', 'admin', 'admin_one', 'admin_one@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'false', '2022-09-13');
+('5064a92e-35b8-11ed-a261-0242ac120002', 'user', 'user_two', 'user_two@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064ac58-35b8-11ed-a261-0242ac120002', 'user', 'user_three', 'user_three@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064ad7a-35b8-11ed-a261-0242ac120002', 'user', 'user_four', 'user_four@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064afd2-35b8-11ed-a261-0242ac120002', 'user', 'user_five', 'user_five@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064b0e0-35b8-11ed-a261-0242ac120002', 'user', 'user_six', 'user_six@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'false', '2022-09-13'),
+('5064b1e4-35b8-11ed-a261-0242ac120002', 'user', 'user_seven', 'user_seven@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064b392-35b8-11ed-a261-0242ac120002', 'user', 'user_eight', 'user_eight@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13'),
+('5064b496-35b8-11ed-a261-0242ac120002', 'user', 'user_nine', 'user_nine@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'false', '2022-09-13'),
+('5064b59a-35b8-11ed-a261-0242ac120002', 'user', 'user_ten', 'user_ten@gmail.com', '$2a$12$in7pEyqd6yvGfzGj.8/MB.Kslv1x4tJLGMGQcLzbyrMEpnHswl4A.', 'true', '2022-09-13');
+
 
 INSERT INTO "chat" ("id", "created_at") VALUES
 ('b830c080-3363-11ed-a261-0242ac120002', '2022-09-13');

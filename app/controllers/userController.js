@@ -179,9 +179,21 @@ const userController = {
     const updated = await toUpdate.save();
     console.log(`User ${req.body.id} has been updated`)
     res.status(200).json(updated);
+  },
+
+  getAllUsers: async (req, res) => {
+    if (req.loggedIn.role === "admin" || req.loggedIn.role === "helper") {
+      const dbResponse = await User.findAll();
+      // get all simple users and remove their passwords
+      const users = dbResponse.filter(el => el.dataValues.role === 'user').map(el => ({...el.dataValues, password: ""}));
+      console.log("Simple users >>>", users);
+      res.status(200).json(users);
+    } else {
+      res.status(400).json({ error: "Not authorized" });
+    }
   }
 };
 
-//TODO add create and Update and tests
+//TODO tests for getallusers
 
 module.exports = userController;

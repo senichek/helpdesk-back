@@ -284,4 +284,14 @@ describe("===== userController tests =====", () => {
     expect(response.body.message).toBe(`User with id ${test_user_id} not found`);
   });
 
+  test("GET /users - should return list of simple users", async () => {
+    const response = await request(app).get("/users")
+    .set('Authorization', `Bearer ${admin_jwt}`);
+
+    // Just to make sure there is at least some valid data in the list
+    expect(response.body[0].role).toBe('user');
+    expect(response.body[0].name).toBe('user_one');
+    expect(response.body[2].role).toBe('user');
+    expect(response.body[2].name).toBe('user_three');
+  });
 });

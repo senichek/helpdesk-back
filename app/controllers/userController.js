@@ -194,6 +194,4 @@ const userController = {
   }
 };
 
-//TODO tests for getallusers
-
 module.exports = userController;

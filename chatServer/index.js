@@ -33,6 +33,7 @@ io.on("connection", (socket) => {
     users.push({
       socketId: id,
       userId: socket.username, // username is ID of user in database
+      role: socket.handshake.auth.role
     });
   }
   console.log("Users connected to chat server >>>", users);

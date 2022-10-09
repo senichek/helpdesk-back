@@ -37,9 +37,9 @@ io.on("connection", (socket) => {
     });
   }
   console.log("Users connected to chat server >>>", users);
-
-  // Emit event to all connected clients except the sender
-  socket.broadcast.emit("connected_chat_users", users);
+  
+  // Emits event to all connected clients
+  io.emit("connected_chat_users", users);
 
   socket.on('join_room', (room) => {
     socket.join(room);

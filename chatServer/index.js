@@ -49,9 +49,18 @@ io.on("connection", (socket) => {
     io.emit("helper_connected");
   }
 
-  socket.on('join_room', (room) => {
-    socket.join(room);
-    console.log(`Joined room ${room}`)
+  socket.on('join_room', (data) => {
+    // recipient = room id
+    socket.join(data.recipient);
+    console.log(`${data.role} joined room ${data.recipient}`);
+
+    // If the role is "helper" and Recipient is different from the one who is logged in
+    // it means that "helper" joined the chat of "user".
+    if (data.role === 'helper' && data.loggedInUserId !== data.recipient) {
+      // recipient = room id
+      socket.to(data.recipient).emit('helper_joined_your_chat', data);
+      console.log(`${data.role} with id ${data.loggedInUserId} joined room ${data.recipient}`);
+    }
   });
 
   // Send messages to specific room (private message)

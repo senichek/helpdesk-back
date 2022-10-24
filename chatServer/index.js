@@ -41,6 +41,14 @@ io.on("connection", (socket) => {
   // Emits event to all connected clients
   io.emit("connected_chat_users", users);
 
+  // Check if a helper has connected. If "yes" inform about it the front-end
+  // by emitting the event.
+  const helper = users.find(el => el.role === 'helper');
+  
+  if (helper) {
+    io.emit("helper_connected");
+  }
+
   socket.on('join_room', (room) => {
     socket.join(room);
     console.log(`Joined room ${room}`)

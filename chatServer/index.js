@@ -72,6 +72,8 @@ io.on("connection", (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Socket.IO client disconnected.');
+    // Emits event to all connected clients
+    io.emit("logout", socket.id);
   });
 
 });

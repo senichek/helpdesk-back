@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://help-desker.herokuapp.com',
+  origin: 'https://lush-agreement.surge.sh',
   methods:['GET', 'POST', 'PATCH', 'DELETE']
 }));
 

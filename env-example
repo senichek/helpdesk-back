@@ -5,3 +5,6 @@ DB_USERNAME=
 DB_PASSWORD=
 JWT_SECRET=
 JWT_EXPIRATION='30d'
+DB_PORT=12345
+
+#host_string_example="ec2-63-33-36-236.eu-west-1.compute.amazonaws.com"

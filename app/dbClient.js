@@ -6,7 +6,9 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     //host: "localhost",
-    host: "ec2-63-33-36-236.eu-west-1.compute.amazonaws.com",
+    //host: "ec2-63-33-36-236.eu-west-1.compute.amazonaws.com",
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: "postgres",
     dialectOptions: {
       ssl: {
